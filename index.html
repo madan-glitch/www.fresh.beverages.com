@@ -10,20 +10,18 @@
 
   <!-- Header -->
   <header>
-    <img src="assets/logo.jpeg" alt="Natural Badam Milk Logo" class="logo" />
-
-    <!-- Mobile menu toggle icon (3 dots) -->
-    <div class="menu-toggle" id="menu-toggle">⋮</div>
-
-    <!-- Navigation -->
-    <nav id="nav-menu" class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
+    <img src="assets/logo.jpeg" alt="Logo" class="logo" />
+    <nav>
+      <div id="menu-toggle" class="menu-toggle">☰</div>
+      <div class="nav-links" id="nav-menu">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Home Section -->
   <section id="home" class="hero">
     <div class="overlay"></div>
     <div class="content">
@@ -60,7 +58,7 @@
         <img src="assets/product3.jpg" alt="Powdered Badam Drink Mix" />
         <h3>Powdered Badam Drink Mix</h3>
         <p>Instant mix made with natural almonds, cardamom, and saffron for quick nutrition.</p>
-        <span>100ml — ₹80</span>
+        <span>100g — ₹80</span>
         <a href="#" class="buy-btn">Buy Now</a>
       </div>
 
@@ -82,16 +80,13 @@
         <a href="#" class="buy-btn">Buy Now</a>
       </div>
 
-      <!-- Product  -->
+      <!-- Product 6 -->
       <div class="product">
         <img src="assets/product6.jpg" alt="Rose Milk" />
         <h3>Rose Milk</h3>
         <p>Rose milk flavor infused with the richness of real rose petals and creamy delight.</p>
-        <span>250ml — ₹30</span>
+        <span>250ml — ₹40</span>
         <a href="#" class="buy-btn">Buy Now</a>
-      </div>
-
-      <!-- Add more products here -->
     </div>
   </section>
 
@@ -108,13 +103,55 @@
     <p>© 2025 Natural Badam Milk | All Rights Reserved</p>
   </footer>
 
-  <!-- Script for mobile menu -->
+  <!-- JavaScript -->
   <script>
-    const toggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav-menu');
-    toggle.addEventListener('click', () => {
-      nav.classList.toggle('show');
+    document.addEventListener("DOMContentLoaded", () => {
+      const phoneNumber = "916363407163";
+
+      // WhatsApp Order Button
+      document.querySelectorAll(".buy-btn").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.preventDefault();
+
+          const product = btn.closest(".product");
+          const name = product.querySelector("h3").textContent.trim();
+          const price = product.querySelector("span").textContent.trim();
+
+          const msg = `Hi, I'd like to order ${name} – ${price}`;
+          const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
+
+          const win = window.open(url, "_blank");
+          if (!win) window.location.href = url; // Fallback
+        });
+      });
+
+      // Smooth Scroll
+      document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+
+          // Close mobile menu
+          document.getElementById("nav-menu").classList.remove("show");
+        });
+      });
+
+      // Mobile nav toggle
+      const toggle = document.getElementById("menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+
+      toggle.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+      });
+
+      window.addEventListener("click", e => {
+        if (!navMenu.contains(e.target) && !toggle.contains(e.target)) {
+          navMenu.classList.remove("show");
+        }
+      });
     });
   </script>
+
 </body>
 </html>
