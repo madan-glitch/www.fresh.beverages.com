@@ -35,6 +35,7 @@
   <section id="products" class="products">
     <h2>Our Beverages</h2>
     <div class="product-list">
+
       <!-- Product 1 -->
       <div class="product">
         <img src="assets/product1.jpg" alt="Natural Badam Milk" />
@@ -87,6 +88,8 @@
         <p>Rose milk flavor infused with the richness of real rose petals and creamy delight.</p>
         <span>250ml — ₹40</span>
         <a href="#" class="buy-btn">Buy Now</a>
+      </div>
+
     </div>
   </section>
 
@@ -105,34 +108,65 @@
 
   <!-- JavaScript -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const phoneNumber = "916363407163";
+    // WhatsApp number
+    const phoneNumber = "916363407163";
 
-      // WhatsApp Order Button
-      document.querySelectorAll(".buy-btn").forEach(btn => {
-        btn.addEventListener("click", e => {
+    // Your actual Google Apps Script Web App URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwMoM6Z17m6K0u3Yd0bR-mncK246ILmuyIcCxWl40m2uhu_S2WtcW3Y_UgNN_gJDG0jkw/exec";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".buy-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           e.preventDefault();
 
           const product = btn.closest(".product");
           const name = product.querySelector("h3").textContent.trim();
-          const price = product.querySelector("span").textContent.trim();
+          const priceText = product.querySelector("span").textContent.trim();
 
-          const msg = `Hi, I'd like to order ${name} – ${price}`;
+          // Extract ₹ price
+          const priceMatch = priceText.match(/₹\s?(\d+)/);
+          const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
+
+          const tax = parseFloat((price * 0.05).toFixed(2)); // Example: 5% tax
+          const quantity = 1;
+          const customerNumber = phoneNumber;
+
+          // 1. Send order data to Google Sheet
+          fetch(scriptURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              customerNumber,
+              product: name,
+              quantity,
+              price,
+              tax
+            })
+          })
+          .then(response => response.json())
+          .then(result => console.log("Order logged:", result))
+          .catch(error => console.error("Error sending to Google Sheet:", error));
+
+          // 2. Open WhatsApp chat
+          const msg = `Hi, I'd like to order ${name} – ${priceText}`;
           const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
 
-          const win = window.open(url, "_blank");
-          if (!win) window.location.href = url; // Fallback
+          const newTab = window.open(url, "_blank");
+          if (!newTab) {
+            window.location.href = url;
+          }
         });
       });
 
-      // Smooth Scroll
-      document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", e => {
+      // Smooth scroll for nav links
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
           e.preventDefault();
           const target = document.querySelector(link.getAttribute("href"));
           if (target) target.scrollIntoView({ behavior: "smooth" });
 
-          // Close mobile menu
           document.getElementById("nav-menu").classList.remove("show");
         });
       });
@@ -145,7 +179,7 @@
         navMenu.classList.toggle("show");
       });
 
-      window.addEventListener("click", e => {
+      window.addEventListener("click", (e) => {
         if (!navMenu.contains(e.target) && !toggle.contains(e.target)) {
           navMenu.classList.remove("show");
         }
