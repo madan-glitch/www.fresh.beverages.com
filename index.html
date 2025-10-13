@@ -16,6 +16,7 @@
       <div class="nav-links" id="nav-menu">
         <a href="#home">Home</a>
         <a href="#products">Products</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -23,6 +24,12 @@
 
   <!-- Home Section -->
   <section id="home" class="hero">
+    <!-- Video background -->
+    <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+      <source src="assets/hero-bg-video.mp4" type="video/mp4" />
+      <!-- Fallback to image if video not supported -->
+      Your browser does not support the video tag.
+    </video>
     <div class="overlay"></div>
     <div class="content">
       <h1>Natural Badam Milk</h1>
@@ -32,7 +39,7 @@
   </section>
 
   <!-- Products Section -->
-  <section id="products" class="products">
+  <section id="products" class="products hidden">
     <h2>Our Beverages</h2>
     <div class="product-list">
 
@@ -93,6 +100,47 @@
     </div>
   </section>
 
+  <!-- About Section -->
+  <section id="about" class="about hidden">
+    <h2>About Us</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Welcome to Natural Badam Milk, a newly launched beverage startup founded by Madan, a professional beverage maker with special expertise in crafting rich and healthy Badam (almond) milk.
+        </p>
+        <p>
+          With years of hands-on experience, Madan brings a perfect blend of tradition, taste, and quality to every drink. At Natural Badam Milk, we specialize in customized beverages tailored to match each customer’s unique preferences.
+        </p>
+        <p>We proudly offer a wide range of signature Badam milk flavors, including:</p>
+        <ul>
+          <li>Kesar Badam (Saffron Almond)</li>
+          <li>Rose Badam</li>
+          <li>Cinnamon Badam</li>
+          <li>Chocolate Badam</li>
+          <li>Butterscotch Badam</li>
+          <li>Kesar Pista Badam (Saffron, Pistachio, Almond)</li>
+        </ul>
+        <p>
+          All our beverages are prepared using high-quality natural ingredients, without any artificial flavors or preservatives.
+        </p>
+        <p>
+          At Natural Badam Milk, we follow strict hygiene and cleanliness standards in every step of our preparation. From sourcing fresh ingredients to maintaining a sanitized kitchen environment, your health and safety are our top priorities.
+        </p>
+        <p>
+          Our pricing is based on current market value, ensuring affordable rates without compromising on quality or hygiene.
+        </p>
+        <p>Contact Us:</p>
+        <p>📞 Mobile: +91 63634 07163</p>
+        <p>📞 Alternate: +91 82172 25833</p>
+        <p>📧 Email: madanmadan64741@gmail.com</p>
+        <p>Feel free to contact us — we’re always happy to serve you the finest, freshest, and most hygienic Badam milk, made just the way you like it!</p>
+      </div>
+      <div class="about-photo">
+        <img src="assets/admin.jpg" alt="Madan - Founder" />
+      </div>
+    </div>
+  </section>
+
   <!-- Contact Section -->
   <section id="contact" class="contact">
     <h2>Contact Us</h2>
@@ -111,10 +159,11 @@
     // WhatsApp number
     const phoneNumber = "916363407163";
 
-    // Your actual Google Apps Script Web App URL
+    // Google Apps Script Web App URL
     const scriptURL = "https://script.google.com/macros/s/AKfycbwMoM6Z17m6K0u3Yd0bR-mncK246ILmuyIcCxWl40m2uhu_S2WtcW3Y_UgNN_gJDG0jkw/exec";
 
     document.addEventListener("DOMContentLoaded", () => {
+      // Buy button click handler
       document.querySelectorAll(".buy-btn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
@@ -123,11 +172,10 @@
           const name = product.querySelector("h3").textContent.trim();
           const priceText = product.querySelector("span").textContent.trim();
 
-          // Extract ₹ price
           const priceMatch = priceText.match(/₹\s?(\d+)/);
           const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
 
-          const tax = parseFloat((price * 0.05).toFixed(2)); // Example: 5% tax
+          const tax = parseFloat((price * 0.05).toFixed(2)); // 5% tax
           const quantity = 1;
           const customerNumber = phoneNumber;
 
@@ -149,7 +197,7 @@
           .then(result => console.log("Order logged:", result))
           .catch(error => console.error("Error sending to Google Sheet:", error));
 
-          // 2. Open WhatsApp chat
+          // 2. Open WhatsApp
           const msg = `Hi, I'd like to order ${name} – ${priceText}`;
           const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
 
@@ -160,13 +208,33 @@
         });
       });
 
-      // Smooth scroll for nav links
+      // Explore Products button - reveal products section and scroll to it
+      document.querySelector(".btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        const products = document.getElementById("products");
+        products.classList.remove("hidden");
+        products.scrollIntoView({ behavior: "smooth" });
+      });
+
+      // Nav links behavior
       document.querySelectorAll("nav a").forEach((link) => {
         link.addEventListener("click", (e) => {
           e.preventDefault();
-          const target = document.querySelector(link.getAttribute("href"));
-          if (target) target.scrollIntoView({ behavior: "smooth" });
 
+          const targetID = link.getAttribute("href");
+          const target = document.querySelector(targetID);
+
+          // Only show About section on clicking About
+          if (targetID === "#about") {
+            target.classList.remove("hidden");
+          }
+
+          // Scroll to target if exists
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+
+          // Close mobile menu if open
           document.getElementById("nav-menu").classList.remove("show");
         });
       });
