@@ -59,30 +59,12 @@ header {
 .hero {
   position: relative;
   height: 100vh;
-  /* fallback background if video not loaded */
   background: url('assets/hero-bg.jpg') center center / cover no-repeat;
   background-attachment: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden;
-}
-
-/* Video styling */
-.hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: auto;
-  height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
 }
 
 .hero .overlay {
@@ -315,6 +297,11 @@ footer {
   .about-photo {
     width: 100%;
     max-width: 300px;
-    margin: 0 auto;
+    margin: 0 auto 20px; /* space below image */
+    order: 0; /* show image first */
+  }
+
+  .about-text {
+    order: 1; /* text after image */
   }
 }
