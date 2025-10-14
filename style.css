@@ -13,6 +13,10 @@ body {
   line-height: 1.6;
 }
 
+.hidden {
+  display: none;
+}
+
 /* Header */
 header {
   display: flex;
@@ -31,7 +35,6 @@ header {
   max-width: 100%;
 }
 
-/* Navigation (Desktop) */
 .nav-links {
   display: flex;
   gap: 20px;
@@ -47,7 +50,6 @@ header {
   color: #f4b400;
 }
 
-/* Mobile Menu Toggle */
 .menu-toggle {
   display: none;
   font-size: 26px;
@@ -55,16 +57,27 @@ header {
   cursor: pointer;
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   height: 100vh;
-  background: url('assets/hero-bg.jpg') center center / cover no-repeat;
-  background-attachment: fixed;
+  width: 100%;
+  background: url('assets/hero-bg.jpg') no-repeat center center / cover;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero .overlay {
@@ -78,6 +91,14 @@ header {
 .hero .content {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .content > * {
+  margin-bottom: 10px;
 }
 
 .hero h1 {
@@ -86,13 +107,12 @@ header {
 }
 
 .hero p {
-  margin-top: 15px;
   font-size: 1.2rem;
 }
 
+/* Centered Explore Button */
 .btn {
   display: inline-block;
-  margin-top: 20px;
   padding: 10px 20px;
   background: #f4b400;
   color: #000;
@@ -100,20 +120,18 @@ header {
   border-radius: 30px;
   font-weight: bold;
   transition: background 0.3s ease;
+  margin: 0 auto;           /* Center the button horizontally */
+  text-align: center;
 }
 
 .btn:hover {
   background: #fff;
 }
 
-/* Products Section */
+/* Products */
 .products {
   padding: 60px 20px;
   text-align: center;
-}
-
-.products.hidden {
-  display: none;
 }
 
 .products h2 {
@@ -129,44 +147,45 @@ header {
 }
 
 .product {
-  background: #1b1b1b;
+  background: #222;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
 }
 
 .product img {
   width: 100%;
-  height: 230px;
-  object-fit: cover;
   border-radius: 10px;
+  margin-bottom: 15px;
 }
 
 .product h3 {
-  margin: 15px 0 5px;
+  font-size: 1.2rem;
   color: #f4b400;
+  margin-bottom: 10px;
 }
 
 .product p {
-  color: #ccc;
   font-size: 0.9rem;
+  color: #ccc;
   margin-bottom: 10px;
 }
 
 .product span {
   display: block;
-  margin: 8px 0;
-  color: #ccc;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #fff;
 }
 
 .buy-btn {
   display: inline-block;
-  padding: 8px 15px;
+  padding: 8px 16px;
   background: #f4b400;
   color: #000;
-  border-radius: 20px;
   text-decoration: none;
-  font-weight: 600;
+  border-radius: 20px;
+  font-weight: bold;
   transition: background 0.3s ease;
 }
 
@@ -174,7 +193,7 @@ header {
   background: #fff;
 }
 
-/* About Section */
+/* About */
 .about {
   padding: 60px 20px;
   background: #000;
@@ -183,10 +202,6 @@ header {
   max-width: 1100px;
   margin: 0 auto 40px;
   border-radius: 10px;
-}
-
-.about.hidden {
-  display: none;
 }
 
 .about h2 {
@@ -229,7 +244,7 @@ header {
   border-radius: 15px;
 }
 
-/* Contact Section */
+/* Contact */
 .contact {
   background: #000;
   padding: 60px 20px;
@@ -246,7 +261,6 @@ header {
   text-decoration: underline;
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 20px;
@@ -255,7 +269,7 @@ footer {
   color: #aaa;
 }
 
-/* Mobile Styles */
+/* Mobile */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -277,11 +291,6 @@ footer {
     display: block;
   }
 
-  .hero {
-    background-attachment: scroll;
-    background-position: center;
-  }
-
   .hero h1 {
     font-size: 2rem;
   }
@@ -292,16 +301,13 @@ footer {
 
   .about-content {
     flex-direction: column;
+    text-align: center;
   }
 
   .about-photo {
+    order: -1;
     width: 100%;
     max-width: 300px;
-    margin: 0 auto 20px; /* space below image */
-    order: 0; /* show image first */
-  }
-
-  .about-text {
-    order: 1; /* text after image */
+    margin: 0 auto 20px;
   }
 }
