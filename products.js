@@ -5,7 +5,7 @@ const products = [
         name: "Kesar Badam",
         description: "Rich saffron-infused almond milk with the perfect blend of tradition and taste.",
         image: "assets/product1.jpg",
-        rate: "₹80",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Kesar Badam (250ml - ₹80)"
     },
@@ -14,7 +14,7 @@ const products = [
         name: "Rose Badam",
         description: "Delicate rose essence blended with creamy almond milk for a refreshing experience.",
         image: "assets/product2.jpg",
-        rate: "₹75",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Rose Badam (250ml - ₹75)"
     },
@@ -23,7 +23,7 @@ const products = [
         name: "Cinnamon Badam",
         description: "Warm cinnamon spice meets smooth almond milk in this aromatic delight.",
         image: "assets/product3.jpg",
-        rate: "₹75",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Cinnamon Badam (250ml - ₹75)"
     },
@@ -32,7 +32,7 @@ const products = [
         name: "Chocolate Badam",
         description: "Indulgent chocolate flavor combined with nutritious almond milk for a perfect treat.",
         image: "assets/product4.jpg",
-        rate: "₹85",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Chocolate Badam (250ml - ₹85)"
     },
@@ -41,7 +41,7 @@ const products = [
         name: "Butterscotch Badam",
         description: "Sweet butterscotch delight mixed with creamy Badam milk for ultimate satisfaction.",
         image: "assets/product5.jpg",
-        rate: "₹85",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Butterscotch Badam (250ml - ₹85)"
     },
@@ -50,7 +50,7 @@ const products = [
         name: "Kesar Pista Badam",
         description: "Premium blend of saffron, pistachio, and almond - our signature special flavor.",
         image: "assets/product6.jpg",
-        rate: "₹95",
+        rate: "₹35",
         grams: "250ml",
         whatsappMessage: "Hi, I would like to order Kesar Pista Badam (250ml - ₹95)"
     }
